@@ -1,13 +1,7 @@
 #ifndef HASHTABLES_H
 #define HASHTABLES_H
 
-/* type of an entry in a hashtable */
-struct entry_t {
-  int val;
-  char * key;
-  struct entry_t * next;
-};
-typedef struct entry_t entry_t;
+#include "entries.h"
 
 /* hashtable type. Keys are strings and elements are integers */
 struct ht_t {
@@ -34,7 +28,8 @@ ht_t * init_ht(int size,
  */
 int hash(char * key, int max);
 
-/* add an entry to ht with given value and key
+/* add an entry to ht with given value and key.
+ * if key already exists, then the old value is overwritten
  * collisions are handled by chaining
  * return 0 on success, -1 on error
  */

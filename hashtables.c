@@ -2,7 +2,7 @@
 #include <string.h>
 
 #include "hashtables.h"
-
+#include "common.h"
 
 /* Just sum all chars in keys and map it to [0, max - 1] by modulo */
 int hash(char * key, int max) {
@@ -10,6 +10,7 @@ int hash(char * key, int max) {
   int hash_val = 0;
 
   if (c == NULL) {
+    print_error("hash", "key is NULL");
     return -1;
   }
 
@@ -43,7 +44,23 @@ ht_t * init_ht(int size,
 }
 
 int add_chaining(struct ht_t * ht, char * key, int val) {
-  return -1;
+  int index = 0;
+  int key_exists = 0; /* 1 if key was already in ht */
+  
+  if((index = hash(key, ht->size)) == -1) {
+    print_error("add_chaining", "invalid index");
+    return -1;
+  }
+
+  key_exists = add_to_entry_list(&(ht->data[index]), key, val);
+  if (key_exists == -1) {
+    print_error("add_chaining", "could not add new entry");
+    return -1;
+  } else if(key_exists == 0) {
+    ht->n_entries += 1;
+  }
+
+  return 0;
 }
 
 int lookup_chaining(struct ht_t * ht, char * key, int * ret) {

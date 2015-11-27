@@ -24,10 +24,14 @@ int main () {
     ht->add(ht, keys[i], i);
   }
 
+  /* overwrite some keys */
+  ht->add(ht, "key1", 20);
+
   for (i = 0; i < n_keys; i++) {
     ht->lookup(ht, keys[i], &ret);
     printf("%s -> %d\n", keys[i], ret);
   }
+
 
   return 0;
 }

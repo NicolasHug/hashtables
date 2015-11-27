@@ -29,6 +29,8 @@ void test_1() {
     printf("%s -> %d\n", keys[i], ret);
   }
 
+  printf("n_entries : %d\n", ht->n_entries);
+
   printf("\nlet's overwrite some keys and add some new ones\n");
   ht->add(ht, "key1", 20);
   ht->add(ht, "collision", 30);
@@ -42,6 +44,8 @@ void test_1() {
   ht->remove(ht, "does_not_exist");
 
   ht->print(ht);
+
+  printf("n_entries : %d\n", ht->n_entries);
 }
 
 void test_2() {

@@ -93,6 +93,8 @@ int remove_chaining(struct ht_t * ht, char * key) {
   if(remove_from_entry_list(&(ht->data[index]), key) == -1) {
     print_error("remove_chaining", "key not found");
     return -1;
+  } else {
+    ht->n_entries -= 1;
   }
   return 0;
 }

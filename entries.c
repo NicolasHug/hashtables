@@ -39,5 +39,31 @@ int lookup_in_entry_list(entry_t * entry_list, char * key, int * val) {
     }
     aux = aux->next;
   }
-  return found;
+  return found ? 0 : -1;
+}
+
+int remove_from_entry_list(entry_t ** entry_list, char * key) {
+  int found = 0;
+  entry_t * aux = *entry_list;
+  entry_t * pred = *entry_list;
+
+  /* handle special case where entry to remove is the first one */
+  if(aux && strcmp(aux->key, key) == 0) {
+    found = 1;
+    *entry_list = aux->next;
+    free(aux);
+  }
+
+  /* general case */
+  while(aux != NULL && !found) {
+    if (strcmp(aux->key, key) == 0) {
+      found = 1;
+      pred->next = aux->next;
+      free(aux);
+    }
+    pred = aux;
+    aux = aux->next;
+  }
+
+  return found ? 0 : -1;
 }

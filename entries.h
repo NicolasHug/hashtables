@@ -21,4 +21,10 @@ int add_to_entry_list(entry_t ** entry_list, char * key, int val);
 int lookup_in_entry_list(entry_t * entry_list, char * key, int * val);
 
 
+/* remove entry with given key from entry_list
+ * return -1 if key did not exist, else 0
+ */
+int remove_from_entry_list(entry_t ** entry_list, char * key);
+
+
 #endif

@@ -1,7 +1,7 @@
 all: main
 
 main: main.c hashtables
-		gcc -Wall main.c hashtables.o entries.o common.o -o main
+		gcc -Wall main.c hashtables.o entries.o common.o -o main -g
 
 hashtables: hashtables.c hashtables.h entries common
 		gcc -c -Wall hashtables.c

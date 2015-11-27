@@ -30,13 +30,20 @@ int main () {
     printf("%s -> %d\n", keys[i], ret);
   }
 
-  printf("let's overwrite some keys and add some new ones\n");
+  printf("\nlet's overwrite some keys and add some new ones\n");
   ht->add(ht, "key1", 20);
   ht->add(ht, "collision", 30);
-  ht->add(ht, "key3", 40);
-  ht->add(ht, "3key", 41);
+  ht->add(ht, "clolision", 31);
 
   ht->print(ht);
+
+  printf("\nand now let's remove some keys\n");
+  ht->remove(ht, "key1");
+  ht->remove(ht, "collisino");
+  ht->remove(ht, "does_not_exist");
+
+  ht->print(ht);
+
 
   return 0;
 }

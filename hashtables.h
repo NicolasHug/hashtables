@@ -54,4 +54,28 @@ int remove_chaining(struct ht_t * ht, char * key);
  */
 void print_chaining(struct ht_t * ht);
 
+/* add an entry to ht with given value and key.
+ * if key already exists, then the old value is overwritten
+ * implementation strategy is based on open addressing
+ * return 0 on success, -1 on error
+ */
+int add_oa(struct ht_t * ht, char * key, int val);
+
+/* look for entry with given key in ht and put its value in val
+ * implementation strategy is based on open addressing
+ * return 0 on success, -1 on error 
+ */
+int lookup_oa(struct ht_t * ht, char * key, int * val);
+
+/* remove entry with given key from ht
+ * implementation strategy is based on open addressing
+ * return 0 on success, -1 on error
+ */
+int remove_oa(struct ht_t * ht, char * key);
+
+/* print all the entries in ht : key -> val 
+ * implementation strategy is based on open addressing
+ */
+void print_oa(struct ht_t * ht);
+
 #endif

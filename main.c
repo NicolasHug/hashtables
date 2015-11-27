@@ -73,10 +73,33 @@ void test_2() {
   }
 }
 
+void test_3() {
+  const int size = 8;
+  ht_t * ht = init_ht(size,
+                      add_chaining,
+                      lookup_oa,
+                      remove_oa,
+                      print_oa
+                      ); 
+  int ret = 0;
+  int i = 0;
+  char key [10];
+
+  /* collisions are inevitable here */
+  for (i = 0; i < size * 2; i++) {
+    sprintf(key, "%d", i);
+    ht->add(ht, key, i);
+  }
+
+  for (i = 0; i < size * 2; i++) {
+    sprintf(key, "%d", i);
+    ht->lookup(ht, key, &ret);
+    printf("%d -> %d\n", i, ret);
+  }
+}
 
 int main() {
-  test_1();
-  test_2();
+  test_3();
 
   return 0;
 }

@@ -117,4 +117,19 @@ void print_chaining(struct ht_t * ht) {
   }
 }
 
+int add_oa(struct ht_t * ht, char * key, int val) {
+  return -1;
+}
+
+int lookup_oa(struct ht_t * ht, char * key, int * val) {
+  return -1;
+}
+
+int remove_oa(struct ht_t * ht, char * key) {
+  return -1;
+}
+
+void print_oa(struct ht_t * ht) {
+}
+
 #include "hashtables.h"

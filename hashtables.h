@@ -1,13 +1,13 @@
 #ifndef HASHTABLES_H
 #define HASHTABLES_H
 
-#include "entries.h"
+#include "entry_chaining.h"
 
 /* hashtable type. Keys are strings and elements are integers */
 struct ht_t {
   int size; /* size of the data field */
   int n_entries; /* number of entries in data field */
-  entry_t ** data; /* array of lists of entries */
+  void ** data; /* array of void pointers */
   int (*add)(struct ht_t * ht, char * key, int val);
   int (*lookup)(struct ht_t * ht, char * key, int * ret);
   int (*remove)(struct ht_t * ht, char * key);

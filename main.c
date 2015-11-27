@@ -75,7 +75,6 @@ void test_2() {
 
 
 int main() {
-
   test_1();
   test_2();
 

@@ -35,9 +35,9 @@ ht_t * init_ht(int size,
   ht_t * ht = malloc(sizeof(ht_t));
   ht->size = size;
   ht->n_entries = 0;
-  ht->data = malloc(sizeof(entry_t) * ht->size);
+  ht->data = malloc(sizeof(void *) * ht->size);
   // init all entry lists to NULL (normally done by malloc anyway)
-  memset(ht->data, 0, sizeof(entry_t *) * ht->size); 
+  memset(ht->data, 0, sizeof(void *) * ht->size); 
   ht->add = add;
   ht->lookup = lookup;
   ht->remove = remove;
@@ -55,7 +55,9 @@ int add_chaining(struct ht_t * ht, char * key, int val) {
     return -1;
   }
 
-  key_exists = add_to_entry_list(&(ht->data[index]), key, val);
+  key_exists = add_to_entry_list((entry_chaining_t **)&(ht->data[index]),
+                                  key, 
+                                  val);
   if (key_exists == -1) {
     print_error("add_chaining", "could not add new entry");
     return -1;
@@ -74,7 +76,9 @@ int lookup_chaining(struct ht_t * ht, char * key, int * val) {
     return -1;
   }
 
-  if(lookup_in_entry_list(ht->data[index], key, val) == -1) {
+  if(lookup_in_entry_list((entry_chaining_t *)ht->data[index], 
+                           key, 
+                           val) == -1) {
     print_error("lookup_chaining", "key not found");
     return -1;
   }
@@ -90,7 +94,8 @@ int remove_chaining(struct ht_t * ht, char * key) {
     return -1;
   }
 
-  if(remove_from_entry_list(&(ht->data[index]), key) == -1) {
+  if(remove_from_entry_list((entry_chaining_t **)&(ht->data[index]), 
+                             key) == -1) {
     print_error("remove_chaining", "key not found");
     return -1;
   } else {
@@ -101,10 +106,10 @@ int remove_chaining(struct ht_t * ht, char * key) {
 
 void print_chaining(struct ht_t * ht) {
   int i = 0;
-  entry_t * aux = NULL;
+  entry_chaining_t * aux = NULL;
 
   for (i = 0; i < ht->size; i++) {
-    aux = ht->data[i];
+    aux = (entry_chaining_t *)ht->data[i];
     while(aux != NULL) {
       printf("%s -> %d\n", aux->key, aux->val);
       aux = aux->next;

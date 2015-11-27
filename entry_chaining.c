@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "entries.h"
+#include "entry_chaining.h"
 
-int add_to_entry_list(entry_t ** entry_list, char * key, int val) {
+int add_to_entry_list(entry_chaining_t ** entry_list, char * key, int val){
   int exists = 0;
-  entry_t * aux = *entry_list;
+  entry_chaining_t * aux = *entry_list;
   while (aux != NULL && !exists) {
     if(strcmp(key, aux->key) == 0){
       exists = 1;
@@ -15,7 +15,7 @@ int add_to_entry_list(entry_t ** entry_list, char * key, int val) {
     aux = aux->next;
   }
   if (!exists) {
-    aux = malloc(sizeof(entry_t));
+    aux = malloc(sizeof(entry_chaining_t));
     /* set new entry key */
     aux->key = malloc(sizeof(char) * strlen(key));
     strcpy(aux->key, key);
@@ -29,9 +29,9 @@ int add_to_entry_list(entry_t ** entry_list, char * key, int val) {
   return exists;
 }
 
-int lookup_in_entry_list(entry_t * entry_list, char * key, int * val) {
+int lookup_in_entry_list(entry_chaining_t * entry_list, char * key, int * val) {
   int found = 0;
-  entry_t * aux = entry_list;
+  entry_chaining_t * aux = entry_list;
   while (aux != NULL && !found) {
     if(strcmp(key, aux->key) == 0){
       found = 1;
@@ -42,10 +42,10 @@ int lookup_in_entry_list(entry_t * entry_list, char * key, int * val) {
   return found ? 0 : -1;
 }
 
-int remove_from_entry_list(entry_t ** entry_list, char * key) {
+int remove_from_entry_list(entry_chaining_t ** entry_list, char * key) {
   int found = 0;
-  entry_t * aux = *entry_list;
-  entry_t * pred = *entry_list;
+  entry_chaining_t * aux = *entry_list;
+  entry_chaining_t * pred = *entry_list;
 
   /* handle special case where entry to remove is the first one */
   if(aux && strcmp(aux->key, key) == 0) {

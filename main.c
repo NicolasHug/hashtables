@@ -76,7 +76,7 @@ void test_2() {
 void test_3() {
   const int size = 8;
   ht_t * ht = init_ht(size,
-                      add_chaining,
+                      add_oa,
                       lookup_oa,
                       remove_oa,
                       print_oa

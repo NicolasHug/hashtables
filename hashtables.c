@@ -121,17 +121,29 @@ void print_chaining(struct ht_t * ht) {
 
 int add_oa(struct ht_t * ht, char * key, int val) {
   int index = 0;
-  entry_oa_t * new_entry = NULL;
+  int found_free_spot = 0;
+  entry_oa_t * aux = NULL;
   
   if((index = hash(key, ht->size)) == -1) {
     print_error("add_chaining", "invalid index");
     return -1;
   }
-  if(ht->data[index] == NULL) {
-    ht->data[index] = malloc(sizeof(entry_oa_t));
-    new_entry = (entry_oa_t *)ht->data[index];
-    new_entry->state = OCCUPIED;
-    new_entry->val = val;
+
+  while(!found_free_spot) {
+    if(ht->data[index] == NULL) {
+        found_free_spot = 1;
+        ht->data[index] = malloc(sizeof(entry_oa_t));
+        aux = (entry_oa_t *)ht->data[index];
+        aux->state = OCCUPIED;
+        aux->val = val;
+    } else if(((entry_oa_t *)ht->data[index])->state == FREE) {
+      found_free_spot = 1;
+      aux = (entry_oa_t *)ht->data[index];
+      aux->state = OCCUPIED;
+      aux->val = val;
+    }
+    /* TODO: handle case where there are no free spot */
+    index = (index + 1) % ht->size; /* linear probing */
   }
 
   return -1;

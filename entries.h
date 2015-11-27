@@ -15,4 +15,10 @@ typedef struct entry_t entry_t;
 int add_to_entry_list(entry_t ** entry_list, char * key, int val);
 
 
+/* look for entry with given key in entry_list and put its value in val
+ * return -1 if key did not exist, else 0
+ */
+int lookup_in_entry_list(entry_t * entry_list, char * key, int * val);
+
+
 #endif

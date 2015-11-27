@@ -24,8 +24,14 @@ int main () {
     ht->add(ht, keys[i], i);
   }
 
-  /* overwrite some keys */
+  for (i = 0; i < n_keys; i++) {
+    ht->lookup(ht, keys[i], &ret);
+    printf("%s -> %d\n", keys[i], ret);
+  }
+
+  printf("let's overwrite some keys\n");
   ht->add(ht, "key1", 20);
+  ht->add(ht, "collision", 30);
 
   for (i = 0; i < n_keys; i++) {
     ht->lookup(ht, keys[i], &ret);

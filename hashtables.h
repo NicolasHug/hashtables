@@ -35,11 +35,11 @@ int hash(char * key, int max);
  */
 int add_chaining(struct ht_t * ht, char * key, int val);
 
-/* look for entry with given key in ht and put its value in ret
+/* look for entry with given key in ht and put its value in val
  * collisions are handled by chaining
  * return 0 on success, -1 on error 
  */
-int lookup_chaining(struct ht_t * ht, char * key, int * ret);
+int lookup_chaining(struct ht_t * ht, char * key, int * val);
 
 /* remove entry with given key from ht
  * collisions are handled by chaining

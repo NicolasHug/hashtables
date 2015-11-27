@@ -45,7 +45,7 @@ ht_t * init_ht(int size,
 
 int add_chaining(struct ht_t * ht, char * key, int val) {
   int index = 0;
-  int key_exists = 0; /* 1 if key was already in ht */
+  int key_exists = 0; /* 1 if key was already in ht else 0 */
   
   if((index = hash(key, ht->size)) == -1) {
     print_error("add_chaining", "invalid index");
@@ -63,8 +63,22 @@ int add_chaining(struct ht_t * ht, char * key, int val) {
   return 0;
 }
 
-int lookup_chaining(struct ht_t * ht, char * key, int * ret) {
-  return -1;
+int lookup_chaining(struct ht_t * ht, char * key, int * val) {
+  int index = 0;
+  int key_found = 0;
+  
+  if((index = hash(key, ht->size)) == -1) {
+    print_error("lookup_chaining", "invalid index");
+    return -1;
+  }
+
+  key_found = lookup_in_entry_list(ht->data[index], key, val);
+  if (!key_found) {
+    print_error("lookup_chaining", "key not found");
+    return -1;
+  }
+
+  return 0;
 }
 
 int remove_chaining(struct ht_t * ht, char * key) {

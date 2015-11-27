@@ -28,3 +28,16 @@ int add_to_entry_list(entry_t ** entry_list, char * key, int val) {
 
   return exists;
 }
+
+int lookup_in_entry_list(entry_t * entry_list, char * key, int * val) {
+  int found = 0;
+  entry_t * aux = entry_list;
+  while (aux != NULL && !found) {
+    if(strcmp(key, aux->key) == 0){
+      found = 1;
+      *val = aux->val;
+    }
+    aux = aux->next;
+  }
+  return found;
+}

@@ -20,7 +20,11 @@ struct ht_t {
 };
 typedef struct ht_t ht_t;
 
-/* hash function. Return an index in [0, max - 1]*/
+/* very basic hash function. 
+ * key must be '\0' terminated
+ * Return an index in [0, max - 1], -1 on error 
+ */
 int hash(char * key, int max);
+
 
 #endif

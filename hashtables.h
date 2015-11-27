@@ -11,6 +11,7 @@ struct ht_t {
   int (*add)(struct ht_t * ht, char * key, int val);
   int (*lookup)(struct ht_t * ht, char * key, int * ret);
   int (*remove)(struct ht_t * ht, char * key);
+  void (*print)(struct ht_t * ht);
 };
 typedef struct ht_t ht_t;
 
@@ -18,7 +19,8 @@ typedef struct ht_t ht_t;
 ht_t * init_ht(int size, 
                int (*add)(ht_t *, char *, int),
                int (*lookup)(ht_t *, char *, int *),
-               int (*remove)(ht_t *, char *)
+               int (*remove)(ht_t *, char *),
+               void (*print)(ht_t *)
                );
 
 
@@ -46,5 +48,10 @@ int lookup_chaining(struct ht_t * ht, char * key, int * val);
  * return 0 on success, -1 on error
  */
 int remove_chaining(struct ht_t * ht, char * key);
+
+/* print all the entries in ht : key -> val 
+ * collisions are handled by chaining
+ */
+void print_chaining(struct ht_t * ht);
 
 #endif

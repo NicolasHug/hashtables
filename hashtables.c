@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 
 #include "hashtables.h"
@@ -27,7 +28,8 @@ int hash(char * key, int max) {
 ht_t * init_ht(int size, 
                int (*add)(ht_t *, char *, int),
                int (*lookup)(ht_t *, char *, int *),
-               int (*remove)(ht_t *, char *)
+               int (*remove)(ht_t *, char *),
+               void (*print)(ht_t *)
                ) {
 
   ht_t * ht = malloc(sizeof(ht_t));
@@ -39,6 +41,7 @@ ht_t * init_ht(int size,
   ht->add = add;
   ht->lookup = lookup;
   ht->remove = remove;
+  ht->print = print;
 
   return ht;
 }
@@ -83,6 +86,19 @@ int lookup_chaining(struct ht_t * ht, char * key, int * val) {
 
 int remove_chaining(struct ht_t * ht, char * key) {
   return -1;
+}
+
+void print_chaining(struct ht_t * ht) {
+  int i = 0;
+  entry_t * aux = NULL;
+
+  for (i = 0; i < ht->size; i++) {
+    aux = ht->data[i];
+    while(aux != NULL) {
+      printf("%s -> %d\n", aux->key, aux->val);
+      aux = aux->next;
+    }
+  }
 }
 
 #include "hashtables.h"

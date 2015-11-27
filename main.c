@@ -16,7 +16,8 @@ int main () {
   ht_t * ht = init_ht(SIZE,
                       add_chaining,
                       lookup_chaining,
-                      remove_chaining
+                      remove_chaining,
+                      print_chaining
                       ); 
   int ret = 0;
 
@@ -29,15 +30,13 @@ int main () {
     printf("%s -> %d\n", keys[i], ret);
   }
 
-  printf("let's overwrite some keys\n");
+  printf("let's overwrite some keys and add some new ones\n");
   ht->add(ht, "key1", 20);
   ht->add(ht, "collision", 30);
+  ht->add(ht, "key3", 40);
+  ht->add(ht, "3key", 41);
 
-  for (i = 0; i < n_keys; i++) {
-    ht->lookup(ht, keys[i], &ret);
-    printf("%s -> %d\n", keys[i], ret);
-  }
-
+  ht->print(ht);
 
   return 0;
 }

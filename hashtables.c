@@ -3,6 +3,8 @@
 #include <string.h>
 
 #include "hashtables.h"
+#include "entry_chaining.h"
+#include "entry_oa.h"
 #include "common.h"
 
 /* Just sum all chars in keys and map it to [0, max - 1] by modulo */
@@ -118,6 +120,20 @@ void print_chaining(struct ht_t * ht) {
 }
 
 int add_oa(struct ht_t * ht, char * key, int val) {
+  int index = 0;
+  entry_oa_t * new_entry = NULL;
+  
+  if((index = hash(key, ht->size)) == -1) {
+    print_error("add_chaining", "invalid index");
+    return -1;
+  }
+  if(ht->data[index] == NULL) {
+    ht->data[index] = malloc(sizeof(entry_oa_t));
+    new_entry = (entry_oa_t *)ht->data[index];
+    new_entry->state = OCCUPIED;
+    new_entry->val = val;
+  }
+
   return -1;
 }
 

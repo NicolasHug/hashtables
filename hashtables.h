@@ -1,8 +1,6 @@
 #ifndef HASHTABLES_H
 #define HASHTABLES_H
 
-#include "entry_chaining.h"
-
 /* hashtable type. Keys are strings and elements are integers */
 struct ht_t {
   int size; /* size of the data field */

@@ -11,8 +11,8 @@ void test_1() {
                     "collision", 
                     "collisino",
                    };
-
-  ht_t * ht = init_ht(size,
+ht_t * ht = init_ht(size,
+                      init_data_chaining,
                       add_chaining,
                       lookup_chaining,
                       remove_chaining,
@@ -51,6 +51,7 @@ void test_1() {
 void test_2() {
   const int size = 8;
   ht_t * ht = init_ht(size,
+                      init_data_chaining,
                       add_chaining,
                       lookup_chaining,
                       remove_chaining,
@@ -76,18 +77,26 @@ void test_2() {
 void test_3() {
   const int size = 8;
   ht_t * ht = init_ht(size,
+                      init_data_oa,
                       add_oa,
                       lookup_oa,
                       remove_oa,
                       print_oa
                       ); 
-  //int ret = 0;
+  int ret = 0;
   int i = 0;
   char key [10];
 
-  for (i = 0; i < size; i++) {
+  /* collisions are inevitable here */
+  for (i = 0; i < size * 2; i++) {
     sprintf(key, "%d", i);
     ht->add(ht, key, i);
+  }
+
+  for (i = 0; i < size * 2; i++) {
+    sprintf(key, "%d", i);
+    ht->lookup(ht, key, &ret);
+    printf("%d -> %d\n", i, ret);
   }
 }
 

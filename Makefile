@@ -16,4 +16,4 @@ common: common.c common.h
 		gcc -c -Wall common.c
 
 clean: 
-		rm -r *.o main
+		rm -f *.o main

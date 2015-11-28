@@ -5,7 +5,9 @@
 struct ht_t {
   int size; /* size of the data field */
   int n_entries; /* number of entries in data field */
-  void ** data; /* array of void pointers */
+  void * data; /* contains entries. Effective type will depend on the strategy
+                * used for collision handling */
+  /* methods */
   int (*add)(struct ht_t * ht, char * key, int val);
   int (*lookup)(struct ht_t * ht, char * key, int * ret);
   int (*remove)(struct ht_t * ht, char * key);
@@ -15,6 +17,7 @@ typedef struct ht_t ht_t;
 
 /* return an initialised hashtable */
 ht_t * init_ht(int size, 
+              void (*init_data)(ht_t *),
                int (*add)(ht_t *, char *, int),
                int (*lookup)(ht_t *, char *, int *),
                int (*remove)(ht_t *, char *),
@@ -27,6 +30,11 @@ ht_t * init_ht(int size,
  * return an index in [0, max - 1], -1 on error 
  */
 int hash(char * key, int max);
+
+/* initialize the data field of ht
+ * collisions are handled by chaining
+ */
+void init_data_chaining(ht_t * ht);
 
 /* add an entry to ht with given value and key.
  * if key already exists, then the old value is overwritten
@@ -51,6 +59,12 @@ int remove_chaining(struct ht_t * ht, char * key);
  * collisions are handled by chaining
  */
 void print_chaining(struct ht_t * ht);
+
+
+/* initialize the data field of ht
+ * implementation strategy is based on open addressing
+ */
+void init_data_oa(ht_t * ht);
 
 /* add an entry to ht with given value and key.
  * if key already exists, then the old value is overwritten

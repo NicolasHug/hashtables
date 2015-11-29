@@ -55,7 +55,7 @@ void init_data_chaining(ht_t * ht) {
 }
 
 
-int add_chaining(struct ht_t * ht, char * key, int val) {
+int add_chaining(ht_t * ht, char * key, int val) {
   int index = 0;
   int key_exists = 0; /* 1 if key was already in ht else 0 */
   entry_chaining_t ** data = (entry_chaining_t **)ht->data;
@@ -76,7 +76,7 @@ int add_chaining(struct ht_t * ht, char * key, int val) {
   return 0;
 }
 
-int lookup_chaining(struct ht_t * ht, char * key, int * val) {
+int lookup_chaining(ht_t * ht, char * key, int * val) {
   int index = 0;
   entry_chaining_t ** data = (entry_chaining_t **)ht->data;
 
@@ -93,7 +93,7 @@ int lookup_chaining(struct ht_t * ht, char * key, int * val) {
   return 0;
 }
 
-int remove_chaining(struct ht_t * ht, char * key) {
+int remove_chaining(ht_t * ht, char * key) {
   int index = 0;
   entry_chaining_t ** data = (entry_chaining_t **)ht->data;
   
@@ -112,7 +112,7 @@ int remove_chaining(struct ht_t * ht, char * key) {
   return 0;
 }
 
-void print_chaining(struct ht_t * ht) {
+void print_chaining(ht_t * ht) {
   int i = 0;
   entry_chaining_t ** data = (entry_chaining_t **)ht->data;
   entry_chaining_t * aux = NULL;
@@ -136,26 +136,58 @@ void init_data_oa(ht_t * ht) {
   }
 }
 
-int add_oa(struct ht_t * ht, char * key, int val) {
+void resize_data(ht_t * ht) {
+  /* need to rehash all keys */
+}
+
+int add_oa(ht_t * ht, char * key, int val) {
   int index = 0;
-  //int found_free_spot = 0;
-  //entry_oa_t * data = (entry_oa_t *)ht->data;
+  entry_oa_t * data = (entry_oa_t *)ht->data;
+  int key_exists = 0;
+  float load_factor = (float)ht->n_entries / (float)ht->size;
+
+  if(load_factor > .75) {
+    resize_data(ht);
+  }
+  
   
   if((index = hash(key, ht->size)) == -1) {
-    print_error("add_chaining", "invalid index");
+    print_error("add_oa", "invalid index");
     return -1;
   }
 
+  key_exists = add_to_oa_array(data, ht->size, index, key, val);
+  if (key_exists == -1) {
+    print_error("add_oa", "could not add new entry (array is full)");
+    return -1;
+  } else if(key_exists == 0) {
+    ht->n_entries += 1;
+  }
+
+  return 0;
+}
+
+int lookup_oa(ht_t * ht, char * key, int * val) {
+  int index = 0;
+  entry_oa_t * data = (entry_oa_t *)ht->data;
+
+  if((index = hash(key, ht->size)) == -1) {
+    print_error("lookup_oa", "invalid index");
+    return -1;
+  }
+
+  if(lookup_in_oa_array(data, ht->size, index, key, val) == -1) {
+    print_error("lookup_oa", "key not found");
+    return -1;
+  }
+
+  return 0;
+}
+
+int remove_oa(ht_t * ht, char * key) {
+  /* not implemented */
   return -1;
 }
 
-int lookup_oa(struct ht_t * ht, char * key, int * val) {
-  return -1;
-}
-
-int remove_oa(struct ht_t * ht, char * key) {
-  return -1;
-}
-
-void print_oa(struct ht_t * ht) {
+void print_oa(ht_t * ht) {
 }

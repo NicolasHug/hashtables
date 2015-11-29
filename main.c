@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "hashtables.h"
+#include "entry_oa.h"
 
 void test_1() {
   int i = 0;
@@ -93,11 +94,12 @@ void test_3() {
     ht->add(ht, key, i);
   }
 
-  for (i = 0; i < size * 2; i++) {
+  for (i = 0; i < size; i++) {
     sprintf(key, "%d", i);
     ht->lookup(ht, key, &ret);
     printf("%d -> %d\n", i, ret);
   }
+
 }
 
 int main() {

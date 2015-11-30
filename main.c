@@ -88,13 +88,13 @@ void test_3() {
   int i = 0;
   char key [10];
 
-  /* collisions are inevitable here */
+  /* collisions are inevitable here + need to resize */
   for (i = 0; i < size * 2; i++) {
     sprintf(key, "%d", i);
     ht->add(ht, key, i);
   }
 
-  for (i = 0; i < size; i++) {
+  for (i = 0; i < size * 2; i++) {
     sprintf(key, "%d", i);
     ht->lookup(ht, key, &ret);
     printf("%d -> %d\n", i, ret);

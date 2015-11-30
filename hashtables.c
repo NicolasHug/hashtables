@@ -137,7 +137,21 @@ void init_data_oa(ht_t * ht) {
 }
 
 void resize_data(ht_t * ht) {
-  /* need to rehash all keys */
+  int new_size = ht->size * 1.5;
+  int old_size = ht->size;
+  entry_oa_t * old_data = (entry_oa_t *)ht->data;
+  int i = 0;
+
+  ht->size = new_size;
+  init_data_oa(ht);
+  ht->n_entries = 0;
+  for (i = 0; i < old_size; i++) {
+    if (old_data[i].state == OCCUPIED) {
+      ht->add(ht, old_data[i].key, old_data[i].val);
+      free(old_data[i].key);
+    }
+  }
+  free(old_data);
 }
 
 int add_oa(ht_t * ht, char * key, int val) {
@@ -146,10 +160,6 @@ int add_oa(ht_t * ht, char * key, int val) {
   int key_exists = 0;
   float load_factor = (float)ht->n_entries / (float)ht->size;
 
-  if(load_factor > .75) {
-    resize_data(ht);
-  }
-  
   
   if((index = hash(key, ht->size)) == -1) {
     print_error("add_oa", "invalid index");
@@ -163,6 +173,11 @@ int add_oa(ht_t * ht, char * key, int val) {
   } else if(key_exists == 0) {
     ht->n_entries += 1;
   }
+
+  if(load_factor > .75) {
+    resize_data(ht);
+  }
+
 
   return 0;
 }

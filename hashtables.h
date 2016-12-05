@@ -16,8 +16,8 @@ struct ht_t {
 typedef struct ht_t ht_t;
 
 /* return an initialised hashtable */
-ht_t * init_ht(int size, 
-              void (*init_data)(ht_t *),
+ht_t * init_ht(int size,
+               void (*init_data)(ht_t *),
                int (*add)(ht_t *, char *, int),
                int (*lookup)(ht_t *, char *, int *),
                int (*remove)(ht_t *, char *),
@@ -25,9 +25,9 @@ ht_t * init_ht(int size,
                );
 
 
-/* very basic hash function. 
+/* very basic hash function.
  * key must be '\0' terminated
- * return an index in [0, max - 1], -1 on error 
+ * return an index in [0, max - 1], -1 on error
  */
 int hash(char * key, int max);
 
@@ -45,7 +45,7 @@ int add_chaining(ht_t * ht, char * key, int val);
 
 /* look for entry with given key in ht and put its value in val
  * collisions are handled by chaining
- * return 0 on success, -1 on error 
+ * return 0 on success, -1 on error
  */
 int lookup_chaining(ht_t * ht, char * key, int * val);
 
@@ -55,7 +55,7 @@ int lookup_chaining(ht_t * ht, char * key, int * val);
  */
 int remove_chaining(ht_t * ht, char * key);
 
-/* print all the entries in ht : key -> val 
+/* print all the entries in ht : key -> val
  * collisions are handled by chaining
  */
 void print_chaining(ht_t * ht);
@@ -76,7 +76,7 @@ int add_oa(ht_t * ht, char * key, int val);
 
 /* look for entry with given key in ht and put its value in val
  * implementation strategy is based on open addressing
- * return 0 on success, -1 on error 
+ * return 0 on success, -1 on error
  */
 int lookup_oa(ht_t * ht, char * key, int * val);
 
@@ -86,7 +86,7 @@ int lookup_oa(ht_t * ht, char * key, int * val);
  */
 int remove_oa(ht_t * ht, char * key);
 
-/* print all the entries in ht : key -> val 
+/* print all the entries in ht : key -> val
  * implementation strategy is based on open addressing
  */
 void print_oa(ht_t * ht);

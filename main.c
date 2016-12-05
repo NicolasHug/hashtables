@@ -4,21 +4,23 @@
 #include "entry_oa.h"
 
 void test_1() {
+  /* Build a chained HT, override some keys, remove some, etc... */
+
   int i = 0;
   const int n_keys = 4;
   const int size = 32;
   char * keys [] = {"key1",
-                    "key2", 
-                    "collision", 
+                    "key2",
+                    "collision",
                     "collisino",
                    };
-ht_t * ht = init_ht(size,
+  ht_t * ht = init_ht(size,
                       init_data_chaining,
                       add_chaining,
                       lookup_chaining,
                       remove_chaining,
                       print_chaining
-                      ); 
+                      );
   int ret = 0;
 
   for (i = 0; i < n_keys; i++) {
@@ -50,6 +52,8 @@ ht_t * ht = init_ht(size,
 }
 
 void test_2() {
+  /* Build a chaining HT of size 8 and add 16 keys.*/
+
   const int size = 8;
   ht_t * ht = init_ht(size,
                       init_data_chaining,
@@ -57,7 +61,7 @@ void test_2() {
                       lookup_chaining,
                       remove_chaining,
                       print_chaining
-                      ); 
+                      );
   int ret = 0;
   int i = 0;
   char key [10];
@@ -76,6 +80,9 @@ void test_2() {
 }
 
 void test_3() {
+  /* Build an open adressing HT of size 8 and add 16 keys. HT will be
+   * resized. */
+
   const int size = 8;
   ht_t * ht = init_ht(size,
                       init_data_oa,
@@ -83,7 +90,7 @@ void test_3() {
                       lookup_oa,
                       remove_oa,
                       print_oa
-                      ); 
+                      );
   int ret = 0;
   int i = 0;
   char key [10];
@@ -103,6 +110,11 @@ void test_3() {
 }
 
 int main() {
+  printf("Test_1\n");
+  test_1();
+  printf("\nTest_2\n");
+  test_2();
+  printf("\nTest_3\n");
   test_3();
 
   return 0;

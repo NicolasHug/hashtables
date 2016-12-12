@@ -27,7 +27,7 @@ int hash(char * key, int max) {
 }
 
 /* return an initialised hashtable */
-ht_t * init_ht(int size, 
+ht_t * init_ht(int size,
                void (*init_data)(ht_t *),
                int (*add)(ht_t *, char *, int),
                int (*lookup)(ht_t *, char *, int *),
@@ -51,7 +51,7 @@ void init_data_chaining(ht_t * ht) {
   /* with chaining, data is an array of lists of entry_chaining_t */
   ht->data = malloc(sizeof(entry_chaining_t *) * ht->size);
   // init all lists to NULL (normally done by malloc anyway)
-  memset(ht->data, 0, sizeof(entry_chaining_t *) * ht->size); 
+  memset(ht->data, 0, sizeof(entry_chaining_t *) * ht->size);
 }
 
 
@@ -96,7 +96,7 @@ int lookup_chaining(ht_t * ht, char * key, int * val) {
 int remove_chaining(ht_t * ht, char * key) {
   int index = 0;
   entry_chaining_t ** data = (entry_chaining_t **)ht->data;
-  
+
   if((index = hash(key, ht->size)) == -1) {
     print_error("remove_chaining", "invalid index");
     return -1;
@@ -160,7 +160,7 @@ int add_oa(ht_t * ht, char * key, int val) {
   int key_exists = 0;
   float load_factor = (float)ht->n_entries / (float)ht->size;
 
-  
+
   if((index = hash(key, ht->size)) == -1) {
     print_error("add_oa", "invalid index");
     return -1;

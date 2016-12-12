@@ -13,7 +13,7 @@ typedef struct entry_oa_t entry_oa_t;
 
 /* add a value with given key to an open addressing array of size s
  * linear probing starts at given index
- * return -1 if array is full, 0 if key did not exist, else 1 
+ * return -1 if array is full, 0 if key did not exist, else 1
  */
 int add_to_oa_array(entry_oa_t * array, int s, int index, char * key, int val);
 
@@ -21,10 +21,11 @@ int add_to_oa_array(entry_oa_t * array, int s, int index, char * key, int val);
  * linear probing starts at given index
  * return -1 if key did not exist, else 0
  */
-int lookup_in_oa_array(entry_oa_t * array, int s, int index, char * key, int * val);
+int lookup_in_oa_array(entry_oa_t * array, int s, int index, char * key,
+                       int * val);
 
-/* not implemented. Use chaining remove is needed 
- * return -1 
+/* not implemented. Use chaining remove is needed
+ * return -1
  */
 int remove_from_oa_array(entry_oa_t * array, char * key);
 

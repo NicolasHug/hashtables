@@ -15,5 +15,5 @@ entry_oa: entry_oa.c entry_oa.h common
 common: common.c common.h
 		gcc -c -Wall common.c
 
-clean: 
+clean:
 		rm -f *.o main

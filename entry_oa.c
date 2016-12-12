@@ -4,8 +4,8 @@
 #include "entry_oa.h"
 #include "common.h"
 
-int add_to_oa_array(entry_oa_t * array, int s, int index, char * key, int val)
-{
+int add_to_oa_array(entry_oa_t * array, int s, int index, char * key,
+                    int val) {
   int found_spot = 0;
   int exists = 0;
   int i = index;
@@ -37,8 +37,8 @@ int add_to_oa_array(entry_oa_t * array, int s, int index, char * key, int val)
   return exists;
 }
 
-int lookup_in_oa_array(entry_oa_t * array, int s, int index, char * key, int *
-val) {
+int lookup_in_oa_array(entry_oa_t * array, int s, int index, char * key,
+                       int * val) {
   int found = 0;
   int stop = 0;
   int i = index;
